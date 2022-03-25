@@ -25,9 +25,9 @@ import {
 } from "./EntryStyled";
 import { getMoodIcon, getMoodName } from "../../helpers/moodHelper";
 
-const SwipeLeft = () => {
+const SwipeLeft = ({ onDelete }) => {
   return (
-    <TouchableOpacity activeOpacity={0.6} onPress={() => console.log("Delete")}>
+    <TouchableOpacity activeOpacity={0.6} onPress={onDelete}>
       <SwipeAction>
         <Icon name="trash-2" size={24} color="white" />
       </SwipeAction>
@@ -46,12 +46,13 @@ const SwipeRight = ({ onEdit }) => {
 };
 
 type EntryProps = {
-  entry: IEntry
-  children: React.ReactNode
-  onEdit: Function
-}
+  entry: IEntry;
+  children: React.ReactNode;
+  onEdit: Function;
+  onDelete: Function;
+};
 
-export const Entry = ({ entry, onEdit }: EntryProps) => {
+export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
   const IMAGES_AMOUNT = 2;
   const TAGS_AMOUNT = 2;
   const images = entry.images?.slice(0, IMAGES_AMOUNT) || [];
@@ -60,7 +61,10 @@ export const Entry = ({ entry, onEdit }: EntryProps) => {
   const extraTagsAmount = entry.tags ? entry.tags?.length - TAGS_AMOUNT : 0;
 
   return (
-    <Swipeable renderLeftActions={SwipeLeft} renderRightActions={() => <SwipeRight onEdit={onEdit} />}>
+    <Swipeable
+      renderLeftActions={() => <SwipeLeft onDelete={onDelete} />}
+      renderRightActions={() => <SwipeRight onEdit={onEdit} />}
+    >
       <Divider />
       <Container>
         <MoodWrapper mood={entry.mood}>
@@ -69,7 +73,7 @@ export const Entry = ({ entry, onEdit }: EntryProps) => {
             <MoodTitle mood={entry.mood}>{getMoodName(entry.mood)}</MoodTitle>
           </View>
           <TimeWrapper mood={entry.mood}>
-            <Time mood={entry.mood}>{moment(entry.datetime).format("HH:mm")}</Time>
+            <Time mood={entry.mood}>{moment(entry.datetime, 'DD/MM/YYYY HH:mm').format("HH:mm")}</Time>
           </TimeWrapper>
         </MoodWrapper>
         <InfoWrapper>

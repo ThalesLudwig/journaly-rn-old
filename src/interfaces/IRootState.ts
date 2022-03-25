@@ -1,4 +1,6 @@
+import { IEntry } from "./IEntry";
+
 export interface IRootState {
-    theme: { value: number };
-  }
-  
+  entries: { value: IEntry[] };
+  theme: { value: number };
+}

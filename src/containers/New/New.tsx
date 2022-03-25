@@ -5,12 +5,23 @@ import MoodCard from "../../components/MoodCard/MoodCard";
 import { MoodEnum } from "../../constants/moods";
 import { truncate } from "lodash";
 import { Container, Title, Subtitle, Padding, TagList, ChipWrapper, Chip, CleanFormButton } from "./NewStyled";
+import { useDispatch } from "react-redux";
+import { IEntry } from "../../interfaces/IEntry";
+import "react-native-get-random-values";
+import { v4 as uuid } from "uuid";
+import { addEntry } from "../../config/entrySlice";
+import { ScreenType } from "../../types/ScreenType";
+import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
 
 export default function New() {
   const [description, setDescription] = useState("");
   const [tagInput, setTagInput] = useState("");
   const [moodInput, setMoodInput] = useState(0);
   const [tags, setTags] = useState<string[]>([]);
+
+  const navigation = useNavigation<ScreenType>();
+  const dispatch = useDispatch();
 
   const moods: number[] = [
     MoodEnum.NEUTRAL,
@@ -23,8 +34,8 @@ export default function New() {
   ];
 
   const onInputTag = (): void => {
-    setTagInput("");
     setTags([...tags, tagInput]);
+    setTagInput("");
   };
 
   const onRemoveTag = (index: number): void => {
@@ -33,13 +44,24 @@ export default function New() {
     setTags(updatedTags);
   };
 
-  const onSubmit = (): void => {};
-
   const onCleanForm = (): void => {
     setDescription("");
     setMoodInput(0);
     setTagInput("");
     setTags([]);
+  };
+
+  const onSubmit = (): void => {
+    const entry: IEntry = {
+      children: description,
+      datetime: moment().format("DD/MM/YYYY HH:mm"),
+      id: uuid(),
+      mood: moodInput,
+      tags: tags.map((tag) => ({ id: uuid(), text: tag })),
+    };
+    dispatch(addEntry(entry));
+    navigation.navigate("Home");
+    onCleanForm();
   };
 
   return (
@@ -90,7 +112,7 @@ export default function New() {
                 </ChipWrapper>
               ))}
             </TagList>
-            <Button disabled={description.trim() === ''} mode="contained" onPress={onSubmit}>
+            <Button disabled={description.trim() === ""} mode="contained" onPress={onSubmit}>
               Create Entry
             </Button>
             <CleanFormButton onPress={onCleanForm}>Clean Form</CleanFormButton>

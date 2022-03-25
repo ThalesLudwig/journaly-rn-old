@@ -5,18 +5,26 @@ import MoodCard from "../../components/MoodCard/MoodCard";
 import { MoodEnum } from "../../constants/moods";
 import { truncate } from "lodash";
 import { Container, Title, Subtitle, Padding, TagList, ChipWrapper, Chip } from "./EditStyled";
-import { RouteProp, useRoute } from "@react-navigation/native";
-import { IEntry } from "../../interfaces/IEntry";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { EntryTag, IEntry } from "../../interfaces/IEntry";
+import { ScreenType } from "../../types/ScreenType";
+import { useDispatch } from "react-redux";
+import moment from "moment";
+import "react-native-get-random-values";
+import { v4 as uuid } from "uuid";
+import { updateEntry } from "../../config/entrySlice";
 
 export default function Edit() {
   const {
     params: { entry },
   } = useRoute<RouteProp<{ Edit: { entry: IEntry } }, "Edit">>();
+  const navigation = useNavigation<ScreenType>();
+  const dispatch = useDispatch();
 
   const [description, setDescription] = useState(entry.children);
   const [tagInput, setTagInput] = useState("");
   const [moodInput, setMoodInput] = useState(entry.mood);
-  const [tags, setTags] = useState<string[]>(entry.tags?.map(tag => tag.text) || []);
+  const [tags, setTags] = useState<EntryTag[]>(entry.tags || []);
 
   const moods: number[] = [
     MoodEnum.NEUTRAL,
@@ -29,8 +37,8 @@ export default function Edit() {
   ];
 
   const onInputTag = () => {
+    setTags([...tags, { id: uuid(), text: tagInput }]);
     setTagInput("");
-    setTags([...tags, tagInput]);
   };
 
   const onRemoveTag = (index: number) => {
@@ -39,7 +47,17 @@ export default function Edit() {
     setTags(updatedTags);
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    const updatedEntry: IEntry = {
+      children: description,
+      datetime: moment().format("DD/MM/YYYY HH:mm"),
+      id: entry.id,
+      mood: moodInput,
+      tags,
+    };
+    dispatch(updateEntry(updatedEntry));
+    navigation.goBack();
+  };
 
   return (
     <Container>
@@ -83,12 +101,12 @@ export default function Edit() {
             {tags.map((tag, index) => (
               <ChipWrapper key={index}>
                 <Chip onClose={() => onRemoveTag(index)} mood={moodInput}>
-                  {truncate(tag, { length: 15 })}
+                  {truncate(tag.text, { length: 15 })}
                 </Chip>
               </ChipWrapper>
             ))}
           </TagList>
-          <Button disabled={description.trim() === ''} mode="contained" onPress={onSubmit}>
+          <Button disabled={description.trim() === ""} mode="contained" onPress={onSubmit}>
             Save changes
           </Button>
         </Padding>

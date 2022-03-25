@@ -15,20 +15,27 @@ import {
   TextInput,
 } from "./HomeStyled";
 import { IEntry } from "../../interfaces/IEntry";
-import { mockEntries } from "../../mocks/entries";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types/RootStackParamList";
-
-type ScreenType = StackNavigationProp<RootStackParamList>;
+import { useDispatch, useSelector } from "react-redux";
+import { IRootState } from "../../interfaces/IRootState";
+import { removeEntry } from "../../config/entrySlice";
+import { ScreenType } from "../../types/ScreenType";
 
 export default function App() {
   const navigation = useNavigation<ScreenType>();
+  const { value: entries } = useSelector((state: IRootState) => state.entries);
+  const dispatch = useDispatch();
+
   const [isSearching, setIsSearching] = useState(false);
   const [selectedDay, setSelectedDay] = useState<moment.Moment>(moment().startOf("day"));
 
+  const onDelete = (entry: IEntry): void => {
+    const index = entries.findIndex(e => e.id === entry.id);
+    dispatch(removeEntry(index));
+  };
+
   const renderEntry = (entry: IEntry) => (
-    <Entry onEdit={() => navigation.navigate("Edit", { entry })} entry={entry}>
+    <Entry onDelete={() => onDelete(entry)} onEdit={() => navigation.navigate("Edit", { entry })} entry={entry}>
       {entry.children}
     </Entry>
   );
@@ -59,7 +66,7 @@ export default function App() {
         </SearchContainer>
       )}
       <CalendarWeek selectedDay={selectedDay} onSelectDay={setSelectedDay} />
-      <FlatList data={mockEntries} renderItem={({ item }) => renderEntry(item)} keyExtractor={(item) => item.id} />
+      <FlatList data={entries} renderItem={({ item }) => renderEntry(item)} keyExtractor={(item) => item.id} />
     </Container>
   );
 }
