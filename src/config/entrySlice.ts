@@ -23,7 +23,6 @@ const EntrySlice = createSlice({
     updateEntry(state, { payload }) {
       const entries = [...state.value];
       const index = entries.findIndex((entry) => entry.id === payload.id);
-      console.log('index', index)
       if (index >= 0) entries[index] = payload;
       state.value = entries;
     },
