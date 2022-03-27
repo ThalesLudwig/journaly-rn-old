@@ -49,7 +49,8 @@ export default function App() {
   );
 
   const getEntries = (): IEntry[] => {
-    if (!search.trim()) return entries;
+    if (!search.trim())
+      return entries.filter((entry) => moment(entry.datetime, "DD/MM/YYYY HH:mm").format("DD/MM/YYYY") === selectedDay);
     return entries.filter(
       (entry) =>
         entry.children.toLowerCase().trim().includes(search.toLowerCase().trim()) ||
@@ -96,13 +97,13 @@ export default function App() {
         selectedDay={moment(selectedDay, "DD/MM/YYYY").startOf("day")}
         onSelectDay={(selectedMoment) => dispatch(setDate(moment(selectedMoment).format("DD/MM/YYYY")))}
       />
-      {entries.length === 0 && (
+      {getEntries().length === 0 && !search.trim() && (
         <Empty>
           <Headline>Nothing to see here.</Headline>
           <Subheading>Add a new entry!</Subheading>
         </Empty>
       )}
-      {getEntries().length === 0 && search.trim() && (
+      {getEntries().length === 0 && !!search.trim() && (
         <Empty>
           <Headline>No results with "{search.trim()}".</Headline>
         </Empty>
