@@ -34,7 +34,7 @@ export default function New() {
   ];
 
   const onInputTag = (): void => {
-    setTags([...tags, tagInput]);
+    setTags([...tags, tagInput.trim()]);
     setTagInput("");
   };
 

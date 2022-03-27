@@ -37,7 +37,7 @@ export default function Edit() {
   ];
 
   const onInputTag = () => {
-    setTags([...tags, { id: uuid(), text: tagInput }]);
+    setTags([...tags, { id: uuid(), text: tagInput.trim() }]);
     setTagInput("");
   };
 
