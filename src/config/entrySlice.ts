@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IEntry } from "../interfaces/IEntry";
+import { IEntry } from "../types/EntryType";
 
 type EntryState = {
   value: IEntry[];

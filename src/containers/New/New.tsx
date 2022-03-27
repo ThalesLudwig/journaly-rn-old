@@ -6,7 +6,7 @@ import { MoodEnum } from "../../constants/moods";
 import { truncate } from "lodash";
 import { Container, Title, Subtitle, Padding, TagList, ChipWrapper, Chip, CleanFormButton } from "./NewStyled";
 import { useDispatch } from "react-redux";
-import { IEntry } from "../../interfaces/IEntry";
+import { IEntry } from "../../types/EntryType";
 import "react-native-get-random-values";
 import { v4 as uuid } from "uuid";
 import { addEntry } from "../../config/entrySlice";

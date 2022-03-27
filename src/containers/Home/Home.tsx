@@ -15,10 +15,10 @@ import {
   TextInput,
   Empty,
 } from "./HomeStyled";
-import { IEntry } from "../../interfaces/IEntry";
+import { IEntry } from "../../types/EntryType";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../interfaces/IRootState";
+import { IRootState } from "../../types/RootState";
 import { removeEntry } from "../../config/entrySlice";
 import { ScreenType } from "../../types/ScreenType";
 import { Headline, Subheading } from "react-native-paper";

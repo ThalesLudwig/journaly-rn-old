@@ -1,4 +1,4 @@
-import { IEntry } from "../interfaces/IEntry";
+import { IEntry } from "../types/EntryType";
 
 export type RootStackParamList = {
   Home: undefined;

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { IDayCard } from "../interfaces/IDayCard";
+import { IDayCard } from "../types/DayCard";
 
 export const getDaysIn = (range: "week" | "month", currentMoment?: moment.Moment): IDayCard[] => {
   const currentMonth = currentMoment || moment();

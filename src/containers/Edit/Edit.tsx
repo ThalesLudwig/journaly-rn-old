@@ -6,7 +6,7 @@ import { MoodEnum } from "../../constants/moods";
 import { truncate } from "lodash";
 import { Container, Title, Subtitle, Padding, TagList, ChipWrapper, Chip } from "./EditStyled";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { EntryTag, IEntry } from "../../interfaces/IEntry";
+import { EntryTag, IEntry } from "../../types/EntryType";
 import { ScreenType } from "../../types/ScreenType";
 import { useDispatch } from "react-redux";
 import moment from "moment";

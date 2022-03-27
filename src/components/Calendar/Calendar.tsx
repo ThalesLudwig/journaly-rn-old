@@ -15,7 +15,7 @@ import {
 import * as Haptics from "expo-haptics";
 import { getDaysIn, getDaysInLastMonth, getDaysInNextMonth } from "../../helpers/getDaysIn";
 import { useTheme } from "../../hooks/useTheme";
-import { IDayCard } from "../../interfaces/IDayCard";
+import { IDayCard } from "../../types/DayCard";
 import moment from "moment";
 import { useState } from "react";
 import Icon from "@expo/vector-icons/Feather";

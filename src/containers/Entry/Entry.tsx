@@ -12,9 +12,9 @@ import {
   EditButton,
 } from "./EntryStyled";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { IEntry } from "../../interfaces/IEntry";
+import { IEntry } from "../../types/EntryType";
 import { ScreenType } from "../../types/ScreenType";
-import { IRootState } from "../../interfaces/IRootState";
+import { IRootState } from "../../types/RootState";
 import { useDispatch, useSelector } from "react-redux";
 import { Paragraph, Dialog, Portal, Button } from "react-native-paper";
 import { useState } from "react";

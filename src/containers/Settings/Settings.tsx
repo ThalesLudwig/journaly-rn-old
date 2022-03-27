@@ -1,7 +1,7 @@
 import { Switch, Subheading } from "react-native-paper";
 import { Container, Header, SwitchWrapper, Title, Content } from "./SettingsStyled";
 import { useSelector, useDispatch } from 'react-redux';
-import { IRootState } from "../../interfaces/IRootState";
+import { IRootState } from "../../types/RootState";
 import { lightMode, darkMode } from "../../config/themeSlice";
 import THEME from "../../constants/theme";
 

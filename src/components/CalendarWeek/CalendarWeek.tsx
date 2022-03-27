@@ -1,6 +1,6 @@
 import moment from "moment";
 import * as Haptics from "expo-haptics";
-import { IDayCard } from "../../interfaces/IDayCard";
+import { IDayCard } from "../../types/DayCard";
 import { CardWrapper, Card, CardText, CardListWrapper } from "./CalendarWeekStyled";
 import { getDaysIn } from "../../helpers/getDaysIn";
 

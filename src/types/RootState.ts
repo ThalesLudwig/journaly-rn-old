@@ -1,4 +1,4 @@
-import { IEntry } from "./IEntry";
+import { IEntry } from "./EntryType";
 
 export interface IRootState {
   entries: { value: IEntry[] };

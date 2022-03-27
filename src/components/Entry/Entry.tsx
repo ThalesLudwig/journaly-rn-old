@@ -1,7 +1,7 @@
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import Icon from "@expo/vector-icons/Feather";
 import moment from "moment";
-import { IEntry } from "../../interfaces/IEntry";
+import { IEntry } from "../../types/EntryType";
 import { TouchableOpacity, View } from "react-native";
 import { Paragraph, Dialog, Portal, Button } from "react-native-paper";
 import { truncate } from "lodash";

@@ -1,6 +1,6 @@
 import THEME from "../constants/theme";
 import { useSelector } from "react-redux";
-import { IRootState } from "../interfaces/IRootState";
+import { IRootState } from "../types/RootState";
 import { themeType } from "../types/themeType";
 
 export function useTheme(): themeType {
