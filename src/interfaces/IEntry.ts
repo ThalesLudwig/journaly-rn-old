@@ -12,7 +12,7 @@ export type EntryTag = {
 
 export interface IEntry {
   id: string;
-  children: any;
+  children: string;
   datetime: string;
   mood: MoodEnum;
   images?: EntryImage[];

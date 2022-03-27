@@ -27,7 +27,7 @@ export default function App() {
   const navigation = useNavigation<ScreenType>();
   const { value: entries } = useSelector((state: IRootState) => state.entries);
   const dispatch = useDispatch();
-
+  const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [selectedDay, setSelectedDay] = useState<moment.Moment>(moment().startOf("day"));
 
@@ -47,13 +47,31 @@ export default function App() {
     </Entry>
   );
 
+  const getEntries = (): IEntry[] => {
+    if (!search.trim()) return entries;
+    return entries.filter(
+      (entry) =>
+        entry.children.toLowerCase().trim().includes(search.toLowerCase().trim()) ||
+        entry.tags
+          ?.map((t) => t.text)
+          .toString()
+          .toLowerCase()
+          .includes(search.toLowerCase().trim()),
+    );
+  };
+
   return (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Header>
           <Title>{moment().format("MMMM")}</Title>
           <IconsWrapper>
-            <HeaderButton onPress={() => setIsSearching(!isSearching)}>
+            <HeaderButton
+              onPress={() => {
+                setSearch("");
+                setIsSearching(!isSearching);
+              }}
+            >
               <HeaderIcon name={isSearching ? "x" : "search"} size={TYPOGRAPHY.SIZE.ICON} />
             </HeaderButton>
             <HeaderButton onPress={() => navigation.navigate("Calendar")}>
@@ -65,7 +83,8 @@ export default function App() {
       {isSearching && (
         <SearchContainer>
           <TextInput
-            autoComplete={false}
+            value={search}
+            onChangeText={(value) => setSearch(value)}
             mode="outlined"
             placeholder="Pesquisar"
             left={<TextInput.Icon name="magnify" />}
@@ -79,7 +98,12 @@ export default function App() {
           <Subheading>Add a new entry!</Subheading>
         </Empty>
       )}
-      <FlatList data={entries} renderItem={({ item }) => renderEntry(item)} keyExtractor={(item) => item.id} />
+      {getEntries().length === 0 && search.trim() && (
+        <Empty>
+          <Headline>No results with "{search.trim()}".</Headline>
+        </Empty>
+      )}
+      <FlatList data={getEntries()} renderItem={({ item }) => renderEntry(item)} keyExtractor={(item) => item.id} />
     </Container>
   );
 }
