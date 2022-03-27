@@ -22,14 +22,15 @@ import { IRootState } from "../../types/RootState";
 import { removeEntry } from "../../config/entrySlice";
 import { ScreenType } from "../../types/ScreenType";
 import { Headline, Subheading } from "react-native-paper";
+import { setDate } from "../../config/dateSlice";
 
 export default function App() {
   const navigation = useNavigation<ScreenType>();
   const { value: entries } = useSelector((state: IRootState) => state.entries);
+  const { value: selectedDay } = useSelector((state: IRootState) => state.date);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [selectedDay, setSelectedDay] = useState<moment.Moment>(moment().startOf("day"));
 
   const onDelete = (entry: IEntry): void => {
     const index = entries.findIndex((e) => e.id === entry.id);
@@ -91,7 +92,10 @@ export default function App() {
           />
         </SearchContainer>
       )}
-      <CalendarWeek selectedDay={selectedDay} onSelectDay={setSelectedDay} />
+      <CalendarWeek
+        selectedDay={moment(selectedDay, "DD/MM/YYYY").startOf("day")}
+        onSelectDay={(selectedMoment) => dispatch(setDate(moment(selectedMoment).format("DD/MM/YYYY")))}
+      />
       {entries.length === 0 && (
         <Empty>
           <Headline>Nothing to see here.</Headline>

@@ -24,10 +24,10 @@ import { themeType } from "../../types/themeType";
 
 type CalendarProps = {
   onChange: (day: IDayCard) => any;
+  selectedDay: moment.Moment;
 };
 
 export default function Calendar(props: CalendarProps) {
-  const [selectedDay, setSelectedDay] = useState<moment.Moment>(moment().startOf("day"));
   const [currentMoment, setCurrentMoment] = useState<moment.Moment>(moment());
   const [selectedYear, setSelectedYear] = useState<moment.Moment>(moment());
   const [isShowingYearPicker, setIsShowingYearPicker] = useState<boolean>(false);
@@ -35,7 +35,7 @@ export default function Calendar(props: CalendarProps) {
   const theme: themeType = useTheme();
 
   const isCurrentDay = (date: string) => {
-    return selectedDay.startOf("day").format("DD/MM/YYYY") === date;
+    return props.selectedDay.startOf("day").format("DD/MM/YYYY") === date;
   };
 
   const isCurrentYear = (yearMoment: moment.Moment) => {
@@ -44,7 +44,6 @@ export default function Calendar(props: CalendarProps) {
 
   const selectDay = (day: IDayCard) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setSelectedDay(moment(`${day.day}/${day.month}/${day.year}`, "DD/MM/YYYY").startOf("day"));
     props.onChange(day);
   };
 
@@ -70,7 +69,6 @@ export default function Calendar(props: CalendarProps) {
   };
 
   const setTodayAsSelected = () => {
-    setSelectedDay(moment().startOf("day"));
     setCurrentMoment(moment());
     setSelectedYear(moment());
     props.onChange({
