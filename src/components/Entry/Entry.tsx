@@ -51,9 +51,10 @@ type EntryProps = {
   children: React.ReactNode;
   onEdit: Function;
   onDelete: Function;
+  onPress: Function;
 };
 
-export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
+export const Entry = ({ entry, onEdit, onDelete, onPress }: EntryProps) => {
   const [isShowingModal, setIsShowingModal] = useState(false);
 
   const IMAGES_AMOUNT = 2;
@@ -69,7 +70,7 @@ export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
       renderRightActions={() => <SwipeRight onEdit={onEdit} />}
     >
       <Divider />
-      <Container>
+      <Container onPress={onPress}>
         <MoodWrapper mood={entry.mood}>
           <View>
             <MoodIcon mood={entry.mood} name={getMoodIcon(entry.mood)} size={24} />

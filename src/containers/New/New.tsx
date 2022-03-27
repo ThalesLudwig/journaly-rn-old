@@ -86,7 +86,6 @@ export default function New() {
             <TextInput
               placeholder="No pressure!"
               mode="outlined"
-              autoComplete={false}
               multiline
               numberOfLines={5}
               value={description}
@@ -97,7 +96,6 @@ export default function New() {
             <TextInput
               placeholder="#"
               mode="outlined"
-              autoComplete={false}
               value={tagInput}
               onChangeText={setTagInput}
               returnKeyType="done"

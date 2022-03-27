@@ -8,4 +8,5 @@ export type RootStackParamList = {
   Journal: undefined;
   Calendar: undefined;
   Edit: { entry: IEntry };
+  Entry: { entry: IEntry };
 };

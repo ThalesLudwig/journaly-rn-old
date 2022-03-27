@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { useTheme } from "../../hooks/useTheme";
 import { themeType } from "../../types/themeType";
+import Entry from "../../containers/Entry/Entry";
 
 const Tab = AnimatedTabBarNavigator();
 const Stack = createStackNavigator();
@@ -41,6 +42,7 @@ function HomeNavigator() {
       <Stack.Screen name="Journal" component={Home} options={{ headerShown: false }} />
       <Stack.Screen name="Calendar" component={Calendar} options={headerOptions} />
       <Stack.Screen name="Edit" component={Edit} options={headerOptions} />
+      <Stack.Screen name="Entry" component={Entry} options={headerOptions} />
     </Stack.Navigator>
   );
 }

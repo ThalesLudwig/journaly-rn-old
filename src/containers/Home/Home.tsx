@@ -37,7 +37,12 @@ export default function App() {
   };
 
   const renderEntry = (entry: IEntry) => (
-    <Entry onDelete={() => onDelete(entry)} onEdit={() => navigation.navigate("Edit", { entry })} entry={entry}>
+    <Entry
+      onPress={() => navigation.navigate("Entry", { entry })}
+      onDelete={() => onDelete(entry)}
+      onEdit={() => navigation.navigate("Edit", { entry })}
+      entry={entry}
+    >
       {entry.children}
     </Entry>
   );

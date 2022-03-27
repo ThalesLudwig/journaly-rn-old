@@ -28,4 +28,5 @@ export const Title = styled.Text`
 export const SwitchWrapper = styled.View`
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 `;

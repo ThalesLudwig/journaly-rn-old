@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import { MoodEnum } from "../../constants/moods";
 import { TYPOGRAPHY } from "../../constants/typography";
 
-export const Container = styled.View`
+export const Container = styled.Pressable`
   padding: 20px;
   flex-direction: row;
   width: ${Dimensions.get("window").width}px;
