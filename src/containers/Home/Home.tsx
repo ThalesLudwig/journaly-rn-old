@@ -13,6 +13,7 @@ import {
   IconsWrapper,
   HeaderButton,
   TextInput,
+  Empty,
 } from "./HomeStyled";
 import { IEntry } from "../../interfaces/IEntry";
 import { useNavigation } from "@react-navigation/native";
@@ -20,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../interfaces/IRootState";
 import { removeEntry } from "../../config/entrySlice";
 import { ScreenType } from "../../types/ScreenType";
+import { Headline, Subheading } from "react-native-paper";
 
 export default function App() {
   const navigation = useNavigation<ScreenType>();
@@ -30,7 +32,7 @@ export default function App() {
   const [selectedDay, setSelectedDay] = useState<moment.Moment>(moment().startOf("day"));
 
   const onDelete = (entry: IEntry): void => {
-    const index = entries.findIndex(e => e.id === entry.id);
+    const index = entries.findIndex((e) => e.id === entry.id);
     dispatch(removeEntry(index));
   };
 
@@ -66,6 +68,12 @@ export default function App() {
         </SearchContainer>
       )}
       <CalendarWeek selectedDay={selectedDay} onSelectDay={setSelectedDay} />
+      {entries.length === 0 && (
+        <Empty>
+          <Headline>Nothing to see here.</Headline>
+          <Subheading>Add a new entry!</Subheading>
+        </Empty>
+      )}
       <FlatList data={entries} renderItem={({ item }) => renderEntry(item)} keyExtractor={(item) => item.id} />
     </Container>
   );

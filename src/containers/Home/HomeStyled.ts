@@ -45,3 +45,9 @@ export const SearchContainer = styled.KeyboardAvoidingView`
 `;
 
 export const HeaderIcon = styled(Icon)``;
+
+export const Empty = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
