@@ -3,7 +3,7 @@ import Icon from "@expo/vector-icons/Feather";
 import moment from "moment";
 import { IEntry } from "../../interfaces/IEntry";
 import { TouchableOpacity, View } from "react-native";
-import { Paragraph } from "react-native-paper";
+import { Paragraph, Dialog, Portal, Button } from "react-native-paper";
 import { truncate } from "lodash";
 import {
   Container,
@@ -24,6 +24,7 @@ import {
   ImagePlaceholderText,
 } from "./EntryStyled";
 import { getMoodIcon, getMoodName } from "../../helpers/moodHelper";
+import { useState } from "react";
 
 const SwipeLeft = ({ onDelete }) => {
   return (
@@ -53,6 +54,8 @@ type EntryProps = {
 };
 
 export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
+  const [isShowingModal, setIsShowingModal] = useState(false);
+
   const IMAGES_AMOUNT = 2;
   const TAGS_AMOUNT = 2;
   const images = entry.images?.slice(0, IMAGES_AMOUNT) || [];
@@ -62,7 +65,7 @@ export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
 
   return (
     <Swipeable
-      renderLeftActions={() => <SwipeLeft onDelete={onDelete} />}
+      renderLeftActions={() => <SwipeLeft onDelete={() => setIsShowingModal(true)} />}
       renderRightActions={() => <SwipeRight onEdit={onEdit} />}
     >
       <Divider />
@@ -73,7 +76,7 @@ export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
             <MoodTitle mood={entry.mood}>{getMoodName(entry.mood)}</MoodTitle>
           </View>
           <TimeWrapper mood={entry.mood}>
-            <Time mood={entry.mood}>{moment(entry.datetime, 'DD/MM/YYYY HH:mm').format("HH:mm")}</Time>
+            <Time mood={entry.mood}>{moment(entry.datetime, "DD/MM/YYYY HH:mm").format("HH:mm")}</Time>
           </TimeWrapper>
         </MoodWrapper>
         <InfoWrapper>
@@ -107,6 +110,18 @@ export const Entry = ({ entry, onEdit, onDelete }: EntryProps) => {
         </InfoWrapper>
       </Container>
       <Divider />
+      <Portal>
+        <Dialog visible={isShowingModal} onDismiss={() => setIsShowingModal(false)}>
+          <Dialog.Title>Delete this entry?</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Do you really wish to delete this entry? This action can not be reverted.</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => onDelete()}>Yes, delete</Button>
+            <Button onPress={() => setIsShowingModal(false)}>No, cancel.</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </Swipeable>
   );
 };
