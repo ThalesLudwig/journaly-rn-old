@@ -14,6 +14,7 @@ import {
   HeaderButton,
   TextInput,
   Empty,
+  NothingHereImage,
 } from "./HomeStyled";
 import { IEntry } from "../../types/EntryType";
 import { useNavigation } from "@react-navigation/native";
@@ -99,6 +100,7 @@ export default function App() {
       />
       {getEntries().length === 0 && !search.trim() && (
         <Empty>
+          <NothingHereImage source={require("../../assets/relax.png")} />
           <Headline>Nothing to see here.</Headline>
           <Subheading>Add a new entry!</Subheading>
         </Empty>

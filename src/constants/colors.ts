@@ -8,7 +8,7 @@ export const COLORS = {
     LIGHT: "#90d4cc",
     DARK: "#4d7d78",
   },
-  CLEAR: '#f4fbfc',
+  CLEAR: "#f4fbfc",
   DARK: "#222222",
   GREEN: {
     LIGHT: "#ccefef",

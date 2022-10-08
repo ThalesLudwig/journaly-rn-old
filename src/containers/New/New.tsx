@@ -72,7 +72,7 @@ export default function New() {
             <Title>How are you feeling?</Title>
           </Padding>
           <FlatList
-            style={{ flexGrow: 0, marginStart: 24 }}
+            style={{ flexGrow: 0, paddingStart: 24 }}
             horizontal
             data={moods}
             showsHorizontalScrollIndicator={false}
@@ -113,7 +113,7 @@ export default function New() {
             <Button disabled={description.trim() === ""} mode="contained" onPress={onSubmit}>
               Create Entry
             </Button>
-            <CleanFormButton onPress={onCleanForm}>Clean Form</CleanFormButton>
+            <CleanFormButton onPress={onCleanForm}>Clear</CleanFormButton>
           </Padding>
         </KeyboardAvoidingView>
       </ScrollView>

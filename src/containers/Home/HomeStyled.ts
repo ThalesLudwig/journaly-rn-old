@@ -28,17 +28,6 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.TEXT};
 `;
 
-export const TextInput = styled(PaperTextInput).attrs(({ theme }) => ({
-  placeholderTextColor: theme.PLACEHOLDER
-}))`
-  background-color: ${({ theme }) => theme.BACKGROUND};
-  color: ${({ theme }) => theme.TEXT};
-`;
-
-export const HeaderButton = styled(Button).attrs(({ theme }) => ({
-  color: theme.TEXT
-}))``;
-
 export const SearchContainer = styled.KeyboardAvoidingView`
   padding: 0 24px;
   padding-top: 14px;
@@ -50,4 +39,22 @@ export const Empty = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+  margin-top: 25px;
 `;
+
+export const NothingHereImage = styled.Image`
+  width: 200px;
+  height: 200px;
+  align-self: center;
+`;
+
+export const TextInput = styled(PaperTextInput).attrs(({ theme }) => ({
+  placeholderTextColor: theme.PLACEHOLDER,
+}))`
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  color: ${({ theme }) => theme.TEXT};
+`;
+
+export const HeaderButton = styled(Button).attrs(({ theme }) => ({
+  color: theme.TEXT,
+}))``;

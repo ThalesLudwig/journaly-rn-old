@@ -81,8 +81,8 @@ export default function Calendar(props: CalendarProps) {
   };
 
   const getDaysList = (): IDayCard[] => {
-    return [...getDaysInLastMonth(currentMoment), ...days, ...getDaysInNextMonth(currentMoment)]
-  }
+    return [...getDaysInLastMonth(currentMoment), ...days, ...getDaysInNextMonth(currentMoment)];
+  };
 
   return (
     <Container>
@@ -90,7 +90,7 @@ export default function Calendar(props: CalendarProps) {
         <Pressable onPress={previousMonth}>
           <Icon color={theme.TEXT} name="chevron-left" size={TYPOGRAPHY.SIZE.ICON} />
         </Pressable>
-          <Title>{moment(currentMoment).format("MMMM")}</Title>
+        <Title>{moment(currentMoment).format("MMMM")}</Title>
         <Pressable onPress={() => setIsShowingYearPicker(!isShowingYearPicker)}>
           <Title>{moment(currentMoment).format("YYYY").toUpperCase()}</Title>
         </Pressable>
@@ -143,19 +143,34 @@ export default function Calendar(props: CalendarProps) {
         ))}
       </Week>
       <CardListWrapper>
-        {getDaysList().slice(0, 7).map((day: IDayCard) => renderDayCard(day))}
+        {getDaysList()
+          .slice(0, 7)
+          .map((day: IDayCard) => renderDayCard(day))}
       </CardListWrapper>
       <CardListWrapper>
-        {getDaysList().slice(7, 14).map((day: IDayCard) => renderDayCard(day))}
+        {getDaysList()
+          .slice(7, 14)
+          .map((day: IDayCard) => renderDayCard(day))}
       </CardListWrapper>
       <CardListWrapper>
-        {getDaysList().slice(14, 21).map((day: IDayCard) => renderDayCard(day))}
+        {getDaysList()
+          .slice(14, 21)
+          .map((day: IDayCard) => renderDayCard(day))}
       </CardListWrapper>
       <CardListWrapper>
-        {getDaysList().slice(21, 28).map((day: IDayCard) => renderDayCard(day))}
+        {getDaysList()
+          .slice(21, 28)
+          .map((day: IDayCard) => renderDayCard(day))}
       </CardListWrapper>
       <CardListWrapper>
-        {getDaysList().slice(28).map((day: IDayCard) => renderDayCard(day))}
+        {getDaysList()
+          .slice(28, 35)
+          .map((day: IDayCard) => renderDayCard(day))}
+      </CardListWrapper>
+      <CardListWrapper>
+        {getDaysList()
+          .slice(35)
+          .map((day: IDayCard) => renderDayCard(day))}
       </CardListWrapper>
     </Container>
   );

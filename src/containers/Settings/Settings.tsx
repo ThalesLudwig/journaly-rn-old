@@ -1,6 +1,6 @@
 import { Switch, Subheading } from "react-native-paper";
-import { Container, Header, SwitchWrapper, Title, Content } from "./SettingsStyled";
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Header, SwitchWrapper, Title, Content, SettingsImage, Credit } from "./SettingsStyled";
+import { useSelector, useDispatch } from "react-redux";
 import { IRootState } from "../../types/RootState";
 import { lightMode, darkMode } from "../../config/themeSlice";
 import THEME from "../../constants/theme";
@@ -15,7 +15,7 @@ export default function Settings() {
     } else {
       dispatch(lightMode());
     }
-  }
+  };
 
   return (
     <Container>
@@ -25,13 +25,11 @@ export default function Settings() {
       <Content>
         <SwitchWrapper>
           <Subheading>Dark Mode</Subheading>
-          <Switch
-            value={currentTheme === 0}
-            onValueChange={changeTheme}
-            color={THEME.LIGHT.PRIMARY}
-          />
+          <Switch value={currentTheme === 0} onValueChange={changeTheme} color={THEME.LIGHT.PRIMARY} />
         </SwitchWrapper>
       </Content>
+      <SettingsImage source={require("../../assets/settings.png")} />
+      <Credit>Images courtesy of Zanzi illustrations</Credit>
     </Container>
   );
 }
