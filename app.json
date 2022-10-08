@@ -2,7 +2,7 @@
   "expo": {
     "name": "Journaly",
     "slug": "Journaly",
-    "version": "1.1.1",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
