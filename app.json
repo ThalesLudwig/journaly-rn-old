@@ -23,7 +23,8 @@
         "foregroundImage": "./src/assets/icon.png",
         "backgroundColor": "#5cb4d1"
       },
-      "package": "com.valentini.journaly"
+      "package": "com.valentini.journaly",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
